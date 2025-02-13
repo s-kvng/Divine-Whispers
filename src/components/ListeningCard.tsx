@@ -5,9 +5,12 @@ import { Card } from './ui/card'
 import { Button } from './ui/button'
 import { Mic , MicOff} from "lucide-react"
 
+type ControlCardProps = {
+  isListening: boolean
+  setIsListening: (isListening: boolean) => void
+}
 
-const ListeningCard = () => {
-    const [isListening, setIsListening] = React.useState(false)
+const ListeningCard = ({ isListening, setIsListening }: ControlCardProps) => {
 
   return (
     <Card className="w-full max-w-xl bg-white rounded-3xl shadow-lg p-8">
@@ -39,7 +42,7 @@ const ListeningCard = () => {
 
           {/* Listen button */}
           <Button
-            className={`rounded-full px-6 py-6 h-auto ${
+            className={`rounded-full px-4 py-2 h-auto text-sm ${
               isListening
                 ? "bg-[#FFE5E5] hover:bg-[#FFD6D6] text-[#FF4545]"
                 : "bg-[#0e121b] hover:bg-[#1a1a1a] text-white"
