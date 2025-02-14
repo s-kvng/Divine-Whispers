@@ -1,25 +1,20 @@
 import { NextResponse } from "next/server";
 import Groq from "groq-sdk";
-//import { createOpenAI } from "@ai-sdk/openai";
-//import { OpenAI } from "openai";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { pusherServer } from "@/lib/pusher";
 import fs from "fs";
 import path from "path";
 
-//const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+// setup groq API server
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY, // ensure this is set in your .env.local
 });
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY!);
 
 export async function POST(request: Request) {
-  console.log("key -> ", process.env.OPENAI_API_KEY);
   try {
     const formData = await request.formData();
     const audioFile = formData.get("audio") as Blob;
-
-    console.log(audioFile);
 
     if (!audioFile) {
       return NextResponse.json(
@@ -27,11 +22,6 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
-
-    // Convert Blob to File-like object
-    //const file = new File([audioFile], "audio.webm", { type: "audio/webm" });
-
-    //console.log("file-> ", file);
 
     // Convert the File into a Buffer and write to a temporary file.
     const arrayBuffer = await audioFile.arrayBuffer();
@@ -41,16 +31,6 @@ export async function POST(request: Request) {
     const tempFilePath = path.join(tempDir, fileName);
     fs.writeFileSync(tempFilePath, buffer);
 
-    console.log("file-> ", tempFilePath);
-
-    // Transcribe audio
-    // const transcription = await openai.audio.transcriptions.create(
-    //   {
-    //     file: fs.createReadStream(tempFilePath),
-    //     model: "whisper-1",
-    //   },
-    //   { timeout: 30000 }
-    // );
 
     // Transcribe audio using Groq's transcription service.
     const transcription = await groq.audio.transcriptions.create({
@@ -59,7 +39,6 @@ export async function POST(request: Request) {
       response_format: "text",
     });
 
-    console.log("transcription-> ", transcription);
 
     // Clean up the temporary file.
     fs.unlinkSync(tempFilePath);
@@ -80,11 +59,8 @@ export async function POST(request: Request) {
     Only return the extracted reference in the required format or "none" if no valid reference exists. Do not include any additional text.
     `;
 
-    console.log(prompt);
     const result = await model.generateContent(prompt);
-    console.log("result-> ", result);
     const reference = result.response.text().trim();
-    console.log("reference-> ", reference);
 
     if (reference.toLowerCase() === "none") {
       return NextResponse.json({ message: "No Bible quote detected" });
@@ -99,7 +75,6 @@ export async function POST(request: Request) {
 
     if (!bibleRes.ok) throw new Error("Bible API failed");
     const bibleData = await bibleRes.json();
-    console.log("bibleData-> ", bibleData);
 
     if (!pusherServer) {
       throw new Error("Pusher server not available");
@@ -110,8 +85,6 @@ export async function POST(request: Request) {
       reference: reference,
       text: bibleData.text,
     });
-
-    console.log("pushed");
 
     return NextResponse.json({ success: true });
   } catch (error) {

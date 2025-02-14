@@ -84,7 +84,6 @@ export const useBibleListening = () => {
     return cleanup;
   }, [isRecording]);
 
-  console.log("current ->", currentQuote);
 
   return {
     isRecording,
