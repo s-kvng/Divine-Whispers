@@ -1,7 +1,6 @@
-"use client"
+"use client";
 
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import GitHubButton from "react-github-btn";
 
@@ -11,20 +10,13 @@ const Navbar = () => {
       <header className="mx-auto w-full max-w-7xl px-4 md:px-6 lg:px-8 flex items-center justify-between">
         <div>
           <Link className="flex items-center" href="/">
-            <Image
-              className="w-auto h-8 max-w-[12.5rem] sm:max-w-none"
-              src="/deepgram.svg"
-              alt="Deepgram Logo"
-              width={0}
-              height={0}
-              priority
-            />
+            <p className="font-bold text-xl text-sky-700">NATHAN</p>
           </Link>
         </div>
         <div className="flex items-center gap-6 text-sm">
           <span className="mt-1">
             <GitHubButton
-              href="https://github.com/deepgram-starters/nextjs-live-transcription"
+              href="https://github.com/s-kvng/Divine-Whispers"
               data-color-scheme="no-preference: light; light: light; dark: light;"
               data-size="large"
               data-show-count="true"
@@ -36,7 +28,7 @@ const Navbar = () => {
 
           <span className="gradient-shadow bg-gradient-to-r to-[#13EF93]/50 from-[#149AFB]/80 rounded">
             <Link
-              href="https://console.deepgram.com/signup?jump=keys"
+              href="https://groq.io/"
               target="_blank"
               className="hidden text-xs md:inline-block bg-black text-white rounded m-px px-8 py-2 font-semibold"
             >
