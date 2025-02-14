@@ -1,10 +1,10 @@
-# AI Bible Quotation App
+# Divine Whispers
 
 The **AI Bible Quotation App** is an innovative web application designed to listen to sermons in real-time, transcribe the spoken word, extract Bible references, and display the full Bible quotations. It leverages cutting-edge technologies such as Next.js (with the App Router), Groq (or OpenAI) for transcription, Google Generative AI for Bible reference extraction, Prisma with SQLite for Bible data storage, and Pusher for real-time updates.
 
 ## Table of Contents
 
-- [AI Bible Quotation App](#ai-bible-quotation-app)
+- [Divine Whispers](#divine-whispers)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Features](#features)
@@ -83,6 +83,11 @@ The project is built using the following stack:
 2. **Start the Development Server:**
    ```bash
    Visit http://localhost:3000 in your browser.
+   ```
+
+3. **Demoing the app**
+   ```bash
+   Note: For now you need to stop listening before the realtime event is fired. Working hard to improve the experience ⚗️ 
    ```
 
 
