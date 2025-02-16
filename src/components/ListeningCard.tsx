@@ -15,8 +15,8 @@ const ListeningCard = ({ isRecording, toggleRecording }: ListeningCardProps) => 
 
 
   return (
-    <Card className="w-full max-w-xl bg-white rounded-3xl shadow-lg p-8">
-        <div className="flex flex-col items-center gap-6">
+    <Card className="w-full max-w-xl bg-white rounded-3xl shadow-lg px-8 py-6">
+        <div className="flex flex-col items-center gap-4">
           {/* Status indicator */}
           <div className={`w-16 h-16 rounded-full bg-[#f7f7f7] flex items-center justify-center`}>
             {isRecording ? (
@@ -40,6 +40,12 @@ const ListeningCard = ({ isRecording, toggleRecording }: ListeningCardProps) => 
             Transcribing and detecting
             <br />
             Bible quotations in real time.
+          </p>
+
+          <p className='text-xs text-gray-500'>
+            <span className='text-amber-400'>Note: </span> Click stop listening for Transcription to be triggered
+            <br />
+            Only first quote mentioned is returned (working on improvements 😉)
           </p>
 
           {/* Listen button */}
