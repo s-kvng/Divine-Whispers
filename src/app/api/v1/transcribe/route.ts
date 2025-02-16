@@ -39,6 +39,7 @@ export async function POST(request: Request) {
       response_format: "text",
     });
 
+    console.log(transcription)
 
     // Clean up the temporary file.
     fs.unlinkSync(tempFilePath);
@@ -62,6 +63,8 @@ export async function POST(request: Request) {
     const result = await model.generateContent(prompt);
     const reference = result.response.text().trim();
 
+    console.log("Extracted reference:", reference);
+
     if (reference.toLowerCase() === "none") {
       return NextResponse.json({ message: "No Bible quote detected" });
     }
@@ -72,6 +75,8 @@ export async function POST(request: Request) {
         process.env.NEXT_PUBLIC_SITE_URL
       }/api/v1/bible?reference=${encodeURIComponent(reference)}`
     );
+
+    console.log(bibleRes)
 
     if (!bibleRes.ok) throw new Error("Bible API failed");
     const bibleData = await bibleRes.json();
