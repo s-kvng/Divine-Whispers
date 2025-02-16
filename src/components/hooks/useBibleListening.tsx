@@ -64,6 +64,7 @@ export const useBibleListening = () => {
 
             console.log(formData);
             try {
+              console.log("Uploading recording");
               await fetch("/api/v1/transcribe", {
                 method: "POST",
                 body: formData,
