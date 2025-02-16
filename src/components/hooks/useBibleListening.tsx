@@ -57,10 +57,12 @@ export const useBibleListening = () => {
           };
 
           mediaRecorderRef.current.onstop = async () => {
+            console.log("Stopping")
             const audioBlob = new Blob(audioChunksRef.current, { type: "audio/webm" });
             const formData = new FormData();
             formData.append("audio", audioBlob, "recording.webm");
 
+            console.log(formData);
             try {
               await fetch("/api/v1/transcribe", {
                 method: "POST",
