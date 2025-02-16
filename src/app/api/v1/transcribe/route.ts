@@ -17,6 +17,8 @@ export async function POST(request: Request) {
     const formData = await request.formData();
     const audioFile = formData.get("audio") as Blob;
 
+    console.log("Audio -> ",audioFile)
+
     if (!audioFile) {
       return NextResponse.json(
         { error: "No audio file provided" },
@@ -32,6 +34,7 @@ export async function POST(request: Request) {
     const tempFilePath = path.join(tempDir, fileName);
     fs.writeFileSync(tempFilePath, buffer);
 
+    console.log(tempFilePath)
 
     // Transcribe audio using Groq's transcription service.
     const transcription = await groq.audio.transcriptions.create({
