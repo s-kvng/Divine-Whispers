@@ -12,6 +12,7 @@ const groq = new Groq({
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY!);
 
 export async function POST(request: Request) {
+  console.log("transcribing request")
   try {
     const formData = await request.formData();
     const audioFile = formData.get("audio") as Blob;
